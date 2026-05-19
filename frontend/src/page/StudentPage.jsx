@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 
-function StudentPage(){
+function StudentPage({students, getStudents}){
     const [name, setName] = useState("");
     const [class_n, setClass_n] = useState("");
     const [team, setTeam] =useState("");
-    const [students, setStudents] = useState([]);
-
-    //학생 목록 조회
-    const getStudents = async () => {
-        const response = await fetch("http://localhost:8000/students");
-        const data = await response.json();
-        setStudents(data);
-    }
 
 
     // 학생 등록 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-function AttendPage() {
-  const [students, setStudents] = useState([]);
+function AttendPage({students}) {
   const [attendList, setAttendList] = useState([]);
 
   const [studentId, setStudentId] = useState("");
@@ -13,15 +12,9 @@ function AttendPage() {
   const API_URL = "http://localhost:8000";
 
   useEffect(() => {
-    getStudents();
     getAttendList();
   }, []);
 
-  const getStudents = async () => {
-    const response = await fetch(`${API_URL}/students`);
-    const data = await response.json();
-    setStudents(data);
-  };
 
   const getAttendList = async () => {
     const response = await fetch(`${API_URL}/attend`);
@@ -48,7 +41,7 @@ function AttendPage() {
 
     const data = await response.json();
 
-    alert(data.message);
+   
 
     setStudentId("");
     setAttend("");
@@ -70,12 +63,12 @@ function AttendPage() {
       <h1>출석 입력 / 조회</h1>
       <p>학생별 출석, 지각, 결석, 조퇴 횟수를 입력하고 출석률을 확인할 수 있습니다.</p>
 
-      <section>
-        <h2>출석 정보 입력</h2>
+      <section className="flex flex-wrap">
+        <h2 className="w-full">출석 정보 입력</h2>
 
-        <div>
+        <div className="flex-1 flex flex-col">
           <label>학생 선택</label>
-          <select
+          <select className="border w-30"
             value={studentId}
             onChange={(e) => setStudentId(e.target.value)}
           >
@@ -89,46 +82,42 @@ function AttendPage() {
           </select>
         </div>
 
-        <div>
+        <div className="flex-1 flex flex-col">
           <label>출석 횟수</label>
-          <input
+          <input className="border w-20"
             type="number"
             value={attend}
             onChange={(e) => setAttend(e.target.value)}
           />
         </div>
 
-        <div>
+        <div  className="flex-1 flex flex-col">
           <label>지각 횟수</label>
-          <input
+          <input className="border w-20"
             type="number"
             value={late}
             onChange={(e) => setLate(e.target.value)}
           />
         </div>
 
-        <div>
+        <div className="flex-1 flex flex-col">
           <label>결석 횟수</label>
-          <input
+          <input className="border w-20"
             type="number"
             value={absent}
             onChange={(e) => setAbsent(e.target.value)}
           />
         </div>
 
-        <div>
+        <div className="flex-1 flex flex-col">
           <label>조퇴 횟수</label>
-          <input
+          <input className="border w-20"
             type="number"
             value={earlyLeave}
             onChange={(e) => setEarlyLeave(e.target.value)}
           />
         </div>
 
-        <div>
-          <p>출석률</p>
-          <strong>{attendanceRate}%</strong>
-        </div>
 
         <button type="button" onClick={saveAttend}>
           저장하기
@@ -142,7 +131,7 @@ function AttendPage() {
           조회
         </button>
 
-        <table>
+        <table className="w-[550px]">
           <thead>
             <tr>
               <th>번호</th>
@@ -160,15 +149,15 @@ function AttendPage() {
           <tbody>
             {attendList.map((item, index) => (
               <tr key={item.id}>
-                <td>{index + 1}</td>
-                <td>{item.student_id}</td>
-                <td>{item.student_name}</td>
-                <td>{item.attend}</td>
-                <td>{item.late}</td>
-                <td>{item.absent}</td>
-                <td>{item.early_leave}</td>
-                <td>{item.total_count}</td>
-                <td>{item.attendance_rate}%</td>
+                <td className="text-center">{index + 1}</td>
+                <td className="text-center">{item.student_id}</td>
+                <td className="text-center">{item.student_name}</td>
+                <td className="text-center">{item.attend}</td>
+                <td className="text-center">{item.late}</td>
+                <td className="text-center">{item.absent}</td>
+                <td className="text-center">{item.early_leave}</td>
+                <td className="text-center">{item.total_count}</td>
+                <td className="text-center">{item.attend_rate}%</td>
               </tr>
             ))}
           </tbody>

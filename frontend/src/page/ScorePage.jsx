@@ -1,7 +1,7 @@
 //  ScorePage.jsx
 import { useEffect, useState } from "react";
 
-function ScorePage() {
+function ScorePage({students}) {
     // 성적 등록 state
     const [studentId, setStudentId]= useState("");
     const [pythonScore, setPythonScore] = useState("");
@@ -11,17 +11,10 @@ function ScorePage() {
     const [projectScore, setProjectScore] = useState("");
 
     // 성적목록 state
-    const [students, setStudents] = useState([]);
     const [scores, setScores] = useState([]);
 
     const API_URL = "http://localhost:8000";
 
-    //등록된 학생 전체 조회
-    const getStudents = async () => {
-        const response = await fetch(`${API_URL}/students`);
-        const data = await response.json();
-        setStudents(data);
-    };
 
     // 등록된 성적 목록 조회
     const getScores = async () => {
@@ -60,7 +53,6 @@ function ScorePage() {
     };
 
     useEffect( () => {
-        getStudents();
         getScores();
     }, [] );
 
